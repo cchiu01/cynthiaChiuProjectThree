@@ -9,40 +9,71 @@
     
     </style>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script>
-
-        let array = ['a', 'b', 'd', 'c'];
         
-        function random(array){
-            let newArray = [];
-            // for loop condition breaks when newArray.length == array.length
-            for (let i= 0; newArray.length < array.length; i++) {
+        myApp = {};
+        myApp.randomTrackIndex = [];
+        myApp.playlistFileNames = [];
+
+        myApp.data = {
+                track0: {
+                    title: `I Just Can't Wait to Be King`,
+                    movie: `Lion King`,
+                    source: 'Lion_King_I_Just_Cant_Wait_to_Be_King'
+                },
+                track1: {
+                    title: `I'll Make A Man Out Of You`,
+                    movie: `Mulan`,
+                    source: 'Mulan_Ill_Make_A_Man_Out_Of_You'
+                },
+            };
+
+        // myApp.playlist = ['Mulan_Ill_Make_A_Man_Out_Of_You',
+        //         `Lion_King_I_Just_Cant_Wait_to_Be_King`];               
+        myApp.randomTrackGenerator = function (array){
+            myApp.randomTrackIndex = [];
+            // for loop condition breaks when myApp.randomTrackIndex.length == array.length
+            for (let i= 0; myApp.randomTrackIndex.length < array.length; i++) {
                 // generates a random number from 0 to array.length
-                index = Math.floor((Math.random() * array.length));
-                // console.log(i,index);
-                // adds index to newArray if value does not exist in newArray
-                if (!newArray.includes(index)) {
-                    newArray.push(index);
-                    // console.log(newArray)
-                    
+                let index = Math.floor((Math.random() * array.length));
+                console.log(index)
+                // adds index to myApp.randomTrackIndex.length if value does not exist in newArray
+                if (!myApp.randomTrackIndex.includes(index)) {
+                    myApp.randomTrackIndex.push(index);
                 }
-                
             }
-            return newArray;
+            return myApp.randomTrackIndex;
         };
 
-        newArray = random(array)
-    // let audio, playbtn, seek_bar;
-    // function initAudioPlayer() {
-    //     audio = new Audio ();
-    //     audio.src = "./audio/Mulan_Ill_Make_A_Man_Out_Of_You.mp3";
-    //     // audio.loop = true;
-    //     audio.play();
-    // };
-    // window.addEventListener("load", initAudioPlayer);
+        myApp.getTrackFileName = function (object) {
+            myApp.playlistFileNames = [];
+            // create an array from myApp.data.track0.source
+            for (let each in object) {
+                (myApp.playlistFileNames).push(object[each].source);
+            } 
+        };
+
+        myApp.initAudioPlayer = function () {};
+        
+    let audio, playBtn, seek_bar, playlist, dir, ext;
+    dir = ;
+
+    playlist = ['Mulan_Ill_Make_A_Man_Out_Of_You', `Lion_King_I_Just_Cant_Wait_to_Be_King`];
+    extension = '.mp3';
+    function initAudioPlayer(e) {
+        audio = new Audio ();
+        // audio.src = "./audio/Mulan_Ill_Make_A_Man_Out_Of_You.mp3";
+        audio.src = './audio/' + playlist[e] + `.mp3`;
+        console.log(audio.src);
+        audio.play();
+    };
+    window.addEventListener("load", initAudioPlayer);
     </script>
 </head>
 <body>
-    
+    <button>start</button>
+    <p>Mulan</p>
+    <p>Lion King</p>
 </body>
 </html>
