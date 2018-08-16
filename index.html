@@ -13,8 +13,11 @@
     <script>
         
         myApp = {};
-        myApp.randomTrackIndex = [];
+        myApp.randomTrackList = [];
         myApp.playlistFileNames = [];
+        myApp.playing = false;
+        myApp.audio = {};
+        myApp.trackIndex = 0;
 
         myApp.data = {
                 track0: {
@@ -27,25 +30,14 @@
                     movie: `Mulan`,
                     source: 'Mulan_Ill_Make_A_Man_Out_Of_You'
                 },
-            };
-
-        // myApp.playlist = ['Mulan_Ill_Make_A_Man_Out_Of_You',
-        //         `Lion_King_I_Just_Cant_Wait_to_Be_King`];               
-        myApp.randomTrackGenerator = function (array){
-            myApp.randomTrackIndex = [];
-            // for loop condition breaks when myApp.randomTrackIndex.length == array.length
-            for (let i= 0; myApp.randomTrackIndex.length < array.length; i++) {
-                // generates a random number from 0 to array.length
-                let index = Math.floor((Math.random() * array.length));
-                console.log(index)
-                // adds index to myApp.randomTrackIndex.length if value does not exist in newArray
-                if (!myApp.randomTrackIndex.includes(index)) {
-                    myApp.randomTrackIndex.push(index);
+                track2: {
+                    title: ``,
+                    movie: ``,
+                    source: ``
                 }
-            }
-            return myApp.randomTrackIndex;
-        };
-
+            };
+        
+        
         myApp.getTrackFileName = function (object) {
             myApp.playlistFileNames = [];
             // create an array from myApp.data.track0.source
@@ -53,27 +45,75 @@
                 (myApp.playlistFileNames).push(object[each].source);
             } 
         };
-
-        myApp.initAudioPlayer = function () {};
         
-    let audio, playBtn, seek_bar, playlist, dir, ext;
-    dir = ;
 
-    playlist = ['Mulan_Ill_Make_A_Man_Out_Of_You', `Lion_King_I_Just_Cant_Wait_to_Be_King`];
-    extension = '.mp3';
-    function initAudioPlayer(e) {
-        audio = new Audio ();
-        // audio.src = "./audio/Mulan_Ill_Make_A_Man_Out_Of_You.mp3";
-        audio.src = './audio/' + playlist[e] + `.mp3`;
-        console.log(audio.src);
-        audio.play();
-    };
-    window.addEventListener("load", initAudioPlayer);
+        myApp.randomTrackGenerator = function (array){
+            myApp.randomTrackList = [];
+            // for loop condition breaks when myApp.randomTrackList.length == array.length
+            for (let i= 0; myApp.randomTrackList.length < array.length; i++) {
+                // generates a random number from 0 to array.length
+                let index = Math.floor((Math.random() * array.length));
+                // adds index to myApp.randomTrackList.length if value does not exist in newArray
+                if (!myApp.randomTrackList.includes(index)) {
+                    myApp.randomTrackList.push(index);
+                }
+            }
+        };
+
+
+        myApp.initAudioPlayer = function (array) {
+            myApp.audio = new Audio();
+            // displays name of file based on the trackIndex from randomTrackList
+            let filename = array[myApp.randomTrackList[myApp.trackIndex]];
+            
+            console.log(myApp.randomTrackList);
+            myApp.audio.src = './audio/' + `${filename}` + `.mp3`;
+            if (!myApp.playing) {
+                myApp.audio.play(); 
+                myApp.playing = true;
+            }
+        };
+        
+
+        myApp.switchTrack = function (array) {
+            $('p').click(function () {
+                console.log(`it's working!`);
+                myApp.trackIndex = myApp.trackIndex + 1;
+                let filename = array[myApp.randomTrackList[myApp.trackIndex]];
+                myApp.audio.pause();
+                myApp.audio.src = './audio/' + `${filename}` + `.mp3`;
+                myApp.audio.play();
+            })
+
+        }
+
+    $(function (){
+
+        $('button').click(function () {
+            myApp.getTrackFileName(myApp.data);
+            myApp.randomTrackGenerator(myApp.playlistFileNames);
+            myApp.initAudioPlayer(myApp.playlistFileNames);
+            myApp.switchTrack(myApp.playlistFileNames);
+            
+
+            // $('p').click(function () {
+            //     let audio = new Audio();
+            //     audio.pause;
+            //     console.log(`it's working!`)
+                
+            // })
+            
+        })
+        
+
+    })
+    
     </script>
 </head>
 <body>
     <button>start</button>
-    <p>Mulan</p>
+    <div></div>
     <p>Lion King</p>
+    <p>Mulan</p>
 </body>
 </html>
