@@ -70,6 +70,7 @@
             if (string === `Aladdin_A_Whole_New_World`) {
                 $('p.aladdin').attr("is-playing", true);
             }
+            // myApp.switchTrack(myApp.playlistFileNames);
         }
 
 
@@ -80,7 +81,7 @@
                 // displays name of file based on the trackIndex from randomTrackList
                 let filename = array[myApp.randomTrackList[myApp.trackIndex]];
                 
-                console.log(myApp.randomTrackList);
+                // console.log(myApp.randomTrackList);
                 myApp.audio.src = './audio/' + `${filename}` + `.mp3`;
                 if (!myApp.playing) {
                     myApp.audio.play(); 
@@ -97,9 +98,10 @@
         // the corresponding movie card has attribute is-playing = true 
     
         myApp.switchTrack = function (array) {
-            
-            $('p[is-playing="true"]').on('click', function () {
-                    console.log('yo')
+            // $('p[is-playing="true"]').on('click', function () {
+            $('p').on('click', function () {        
+                if ($(this).attr("is-playing") === 'true' ) {
+                    console.log('play')
                     myApp.audio.pause();
                     $(this).attr("is-playing", false);
                     myApp.trackIndex = myApp.trackIndex + 1;
@@ -107,7 +109,6 @@
                     myApp.audio.src = './audio/' + `${filename}` + `.mp3`;
                     myApp.audio.play();
                     myApp.isPlaying(filename);
-                if ($(this).attr("is-playing") === 'true' ) {
                 }
             })
 
