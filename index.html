@@ -15,7 +15,7 @@
         myApp = {};
         myApp.randomTrackList = [];
         myApp.playlistFileNames = [];
-        myApp.playing = false;
+        myApp.start = false;
         myApp.audio = {};
         myApp.trackIndex = 0;
 
@@ -31,9 +31,9 @@
                     source: 'Mulan_Ill_Make_A_Man_Out_Of_You'
                 },
                 track2: {
-                    title: ``,
-                    movie: ``,
-                    source: ``
+                    title: `Aladdin A Whole New World`,
+                    movie: `Aladdin`,
+                    source: `Aladdin_A_Whole_New_World`
                 }
             };
         
@@ -60,50 +60,65 @@
             }
         };
 
+        myApp.isPlaying = function (string) {
+            if (string === `Lion_King_I_Just_Cant_Wait_to_Be_King`) {
+                $('p.lionKing').attr("is-playing", true);
+            }
+            if (string === `Mulan_Ill_Make_A_Man_Out_Of_You`) {
+                $('p.mulan').attr("is-playing", true);
+            }
+            if (string === `Aladdin_A_Whole_New_World`) {
+                $('p.aladdin').attr("is-playing", true);
+            }
+        }
+
 
         myApp.initAudioPlayer = function (array) {
-            myApp.audio = new Audio();
-            // displays name of file based on the trackIndex from randomTrackList
-            let filename = array[myApp.randomTrackList[myApp.trackIndex]];
-            
-            console.log(myApp.randomTrackList);
-            myApp.audio.src = './audio/' + `${filename}` + `.mp3`;
-            if (!myApp.playing) {
-                myApp.audio.play(); 
-                myApp.playing = true;
-            }
+            $('button').on('click', function () {
+
+                myApp.audio = new Audio();
+                // displays name of file based on the trackIndex from randomTrackList
+                let filename = array[myApp.randomTrackList[myApp.trackIndex]];
+                
+                console.log(myApp.randomTrackList);
+                myApp.audio.src = './audio/' + `${filename}` + `.mp3`;
+                if (!myApp.playing) {
+                    myApp.audio.play(); 
+                    myApp.isPlaying(filename);
+                    myApp.start = true;
+                }
+            })
         };
         
-
+        // listening for click on is-playing for true
+        // stops the track, sets the card to is-playing = false
+        // trackIndex moves to next position of randomTrackList
+        // next song is played
+        // the corresponding movie card has attribute is-playing = true 
+    
         myApp.switchTrack = function (array) {
-            $('p').click(function () {
-                console.log(`it's working!`);
-                myApp.trackIndex = myApp.trackIndex + 1;
-                let filename = array[myApp.randomTrackList[myApp.trackIndex]];
-                myApp.audio.pause();
-                myApp.audio.src = './audio/' + `${filename}` + `.mp3`;
-                myApp.audio.play();
+            
+            $('p[is-playing="true"]').on('click', function () {
+                    console.log('yo')
+                    myApp.audio.pause();
+                    $(this).attr("is-playing", false);
+                    myApp.trackIndex = myApp.trackIndex + 1;
+                    let filename = array[myApp.randomTrackList[myApp.trackIndex]];
+                    myApp.audio.src = './audio/' + `${filename}` + `.mp3`;
+                    myApp.audio.play();
+                    myApp.isPlaying(filename);
+                if ($(this).attr("is-playing") === 'true' ) {
+                }
             })
 
         }
 
     $(function (){
 
-        $('button').click(function () {
             myApp.getTrackFileName(myApp.data);
             myApp.randomTrackGenerator(myApp.playlistFileNames);
             myApp.initAudioPlayer(myApp.playlistFileNames);
             myApp.switchTrack(myApp.playlistFileNames);
-            
-
-            // $('p').click(function () {
-            //     let audio = new Audio();
-            //     audio.pause;
-            //     console.log(`it's working!`)
-                
-            // })
-            
-        })
         
 
     })
@@ -113,7 +128,8 @@
 <body>
     <button>start</button>
     <div></div>
-    <p>Lion King</p>
-    <p>Mulan</p>
+    <p class = "lionKing" is-playing = "false" >Lion King</p>
+    <p class = "mulan" is-playing = "false">Mulan</p>
+    <p class = "aladdin" is-playing = "false">Aladdin</p>
 </body>
 </html>
