@@ -47,7 +47,7 @@
         
         myApp.getTrackFileName = function (object) {
             myApp.playlistFileNames = [];
-            // create an array from myApp.data.track0.source
+            // create an array from myApp.data.track_.source
             for (let each in object) {
                 (myApp.playlistFileNames).push(object[each].source);
             } 
@@ -79,10 +79,9 @@
             if (string === `Aladdin_A_Whole_New_World`) {
                 $('p.aladdin').attr("is-playing", true);
             }
-            // myApp.switchTrack(myApp.playlistFileNames);
-        }
+        };
 
-
+        // 
         myApp.initAudioPlayer = function (array) {
             $('.start').on('click', function () {
                 
@@ -90,8 +89,6 @@
                 myApp.audio = new Audio();
                 // displays name of file based on the trackIndex from randomTrackList
                 let filename = array[myApp.randomTrackList[myApp.trackIndex]];
-                
-                // console.log(myApp.randomTrackList);
                 myApp.audio.src = './audio/' + `${filename}` + `.mp3`;
                 if (!myApp.playing) {
                     myApp.audio.play(); 
@@ -101,40 +98,53 @@
             })
         }; 
 
+        // +1 to score
         myApp.scoreIncrementor = function () {
             myApp.score = myApp.score + 1;
             $('.score').text(myApp.score);
-        }
+        };
         
         // listening for click on is-playing for true
+        // adds +1 to score
+        myApp.correctCardSelected = function () {
+            $('p').on('click', function () {
+                if ($(this).attr("is-playing") === 'true') {
+                    myApp.scoreIncrementor();
+                    myApp.switchTrack(myApp.playlistFileNames);
+                };
+            });
+        };
+
         // stops the track, sets the card to is-playing = false
         // trackIndex moves to next position of randomTrackList
         // next song is played
         // the corresponding movie card has attribute is-playing = true 
-    
         myApp.switchTrack = function (array) {
-            // $('p[is-playing="true"]').on('click', function () {
-            $('p').on('click', function () {        
-                if ($(this).attr("is-playing") === 'true' ) {
-                    myApp.scoreIncrementor();
                     myApp.audio.pause();
-                    $(this).attr("is-playing", false);
+                    $('p[is-playing="true"]').attr("is-playing", false);
                     myApp.trackIndex = myApp.trackIndex + 1;
                     let filename = array[myApp.randomTrackList[myApp.trackIndex]];
                     myApp.audio.src = './audio/' + `${filename}` + `.mp3`;
                     myApp.audio.play();
                     myApp.isPlaying(filename);
-                }
-            })
 
-        }
+
+        };
+
+        // when skip button is clicked, pauses the current song and plays the next song
+        // sets isPlaying = true on next song
+        myApp.skipTrack = function (array) {
+            $('button.skip').on('click', function (){
+                myApp.switchTrack(myApp.playlistFileNames,$(this));
+            });
+        };
 
     $(function (){
-
             myApp.getTrackFileName(myApp.data);
             myApp.randomTrackGenerator(myApp.playlistFileNames);
             myApp.initAudioPlayer(myApp.playlistFileNames);
-            myApp.switchTrack(myApp.playlistFileNames);
+            myApp.correctCardSelected();
+            myApp.skipTrack(myApp.playlistFileNames);
 
     })
     
@@ -143,9 +153,10 @@
 <body>
     <button class = "start">start</button>
     <button class = "skip">skip</button>
-    <button>test</button>
     <span class = 'score'></span>
-    <div></div>
+    <div class = "countdown">
+        <span class = "seconds"></span>
+    </div>
     <p class = "lionKing" is-playing = "false" >Lion King</p>
     <p class = "mulan" is-playing = "false">Mulan</p>
     <p class = "aladdin" is-playing = "false">Aladdin</p>
