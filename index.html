@@ -10,6 +10,7 @@
     </style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
         
         myApp = {};
@@ -19,6 +20,7 @@
         myApp.audio = {};
         myApp.trackIndex = 0;
         myApp.score = 0;
+        myApp.seconds = 1;
 
         myApp.data = {
                 track0: {
@@ -84,7 +86,8 @@
         // 
         myApp.initAudioPlayer = function (array) {
             $('.start').on('click', function () {
-                
+                myApp.countdown()
+
                 $('.score').text(myApp.score);
                 myApp.audio = new Audio();
                 // displays name of file based on the trackIndex from randomTrackList
@@ -97,6 +100,24 @@
                 }
             })
         }; 
+
+        myApp.countdown = function () {
+            let countdown = setInterval(function () {
+                console.log('init')
+                $('.seconds').text(myApp.seconds);
+
+                if (myApp.seconds <= 5) {
+                    $('.seconds').css('color', 'red');
+                        $('.seconds').effect("shake",{distance:3}, 500);
+                };
+
+                if (myApp.seconds == 0) {
+                    clearInterval(countdown);
+                    $('.seconds').effect("shake", { distance: 1, times: 10 }, 100);
+                }
+                myApp.seconds = myApp.seconds - 1;
+            }, 1000);
+        };
 
         // +1 to score
         myApp.scoreIncrementor = function () {
@@ -145,6 +166,7 @@
             myApp.initAudioPlayer(myApp.playlistFileNames);
             myApp.correctCardSelected();
             myApp.skipTrack(myApp.playlistFileNames);
+            
 
     })
     
