@@ -18,6 +18,7 @@
         myApp.start = false;
         myApp.audio = {};
         myApp.trackIndex = 0;
+        myApp.score = 0;
 
         myApp.data = {
                 track0: {
@@ -34,7 +35,13 @@
                     title: `Aladdin A Whole New World`,
                     movie: `Aladdin`,
                     source: `Aladdin_A_Whole_New_World`
+                },
+                track3: {
+                    title: `Lion King Hakuna Matata`,
+                    movie: `Lion King`,
+                    source: `Lion_King_Hakuna_Matata`
                 }
+
             };
         
         
@@ -60,8 +67,10 @@
             }
         };
 
+// sets the html element is-playing = true when song is playing
         myApp.isPlaying = function (string) {
-            if (string === `Lion_King_I_Just_Cant_Wait_to_Be_King`) {
+            if (string === `Lion_King_I_Just_Cant_Wait_to_Be_King` 
+                || string === `Lion_King_Hakuna_Matata`) {
                 $('p.lionKing').attr("is-playing", true);
             }
             if (string === `Mulan_Ill_Make_A_Man_Out_Of_You`) {
@@ -75,8 +84,9 @@
 
 
         myApp.initAudioPlayer = function (array) {
-            $('button').on('click', function () {
-
+            $('.start').on('click', function () {
+                console.log(myApp.score);
+                $('.score').text(myApp.score);
                 myApp.audio = new Audio();
                 // displays name of file based on the trackIndex from randomTrackList
                 let filename = array[myApp.randomTrackList[myApp.trackIndex]];
@@ -90,6 +100,11 @@
                 }
             })
         };
+
+        myApp.scoreIncrementor = function () {
+            myApp.score = myApp.score + 1;
+            $('.score').text(myApp.score);
+        }
         
         // listening for click on is-playing for true
         // stops the track, sets the card to is-playing = false
@@ -101,7 +116,7 @@
             // $('p[is-playing="true"]').on('click', function () {
             $('p').on('click', function () {        
                 if ($(this).attr("is-playing") === 'true' ) {
-                    console.log('play')
+                    myApp.scoreIncrementor();
                     myApp.audio.pause();
                     $(this).attr("is-playing", false);
                     myApp.trackIndex = myApp.trackIndex + 1;
@@ -120,14 +135,15 @@
             myApp.randomTrackGenerator(myApp.playlistFileNames);
             myApp.initAudioPlayer(myApp.playlistFileNames);
             myApp.switchTrack(myApp.playlistFileNames);
-        
 
     })
     
     </script>
 </head>
 <body>
-    <button>start</button>
+    <button class = "start">start</button>
+    <button class = "skip">skip</button>
+    <span class = 'score'></span>
     <div></div>
     <p class = "lionKing" is-playing = "false" >Lion King</p>
     <p class = "mulan" is-playing = "false">Mulan</p>
