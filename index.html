@@ -6,6 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Project 3</title>
     <style>
+
+        .hide {
+            display:none;
+        }
     
     </style>
 
@@ -20,7 +24,7 @@
         myApp.audio = {};
         myApp.trackIndex = 0;
         myApp.score = 0;
-        myApp.seconds = 1;
+        myApp.seconds = 30;
 
         myApp.data = {
                 track0: {
@@ -87,8 +91,9 @@
         myApp.initAudioPlayer = function (array) {
             $('.start').on('click', function () {
                 myApp.countdown()
-
+                $('.skip').removeAttr("disabled");
                 $('.score').text(myApp.score);
+                $(this).addClass("hide");
                 myApp.audio = new Audio();
                 // displays name of file based on the trackIndex from randomTrackList
                 let filename = array[myApp.randomTrackList[myApp.trackIndex]];
@@ -113,7 +118,7 @@
 
                 if (myApp.seconds == 0) {
                     clearInterval(countdown);
-                    $('.seconds').effect("shake", { distance: 1, times: 10 }, 100);
+                    $('.seconds').effect("shake", { distance: 1, times: 20 }, 800);
                 }
                 myApp.seconds = myApp.seconds - 1;
             }, 1000);
@@ -156,7 +161,7 @@
         // sets isPlaying = true on next song
         myApp.skipTrack = function (array) {
             $('button.skip').on('click', function (){
-                myApp.switchTrack(myApp.playlistFileNames,$(this));
+                myApp.switchTrack(myApp.playlistFileNames);
             });
         };
 
@@ -174,7 +179,7 @@
 </head>
 <body>
     <button class = "start">start</button>
-    <button class = "skip">skip</button>
+    <button class = "skip" disabled = "disabled">skip</button>
     <span class = 'score'></span>
     <div class = "countdown">
         <span class = "seconds"></span>
