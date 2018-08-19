@@ -1,0 +1,22 @@
+@import "partials/_setup.scss";
+@import "partials/_main.scss";
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    // background: rgb(17,17,17);
+    background: cornflowerblue;
+}
+
+section, main {
+    min-height: 100vh;
+}
+
+.wrapper {
+    max-width: 1080px;
+    width: 80%;
+    margin: 0 auto;
+}
+
