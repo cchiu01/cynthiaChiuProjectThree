@@ -78,13 +78,13 @@
         myApp.isPlaying = function (string) {
             if (string === `Lion_King_I_Just_Cant_Wait_to_Be_King` 
                 || string === `Lion_King_Hakuna_Matata`) {
-                $('p.lionKing').attr("is-playing", true);
+                $('.lion-king').attr("is-playing", true);
             }
             if (string === `Mulan_Ill_Make_A_Man_Out_Of_You`) {
-                $('p.mulan').attr("is-playing", true);
+                $('.mulan').attr("is-playing", true);
             }
             if (string === `Aladdin_A_Whole_New_World`) {
-                $('p.aladdin').attr("is-playing", true);
+                $('.aladdin').attr("is-playing", true);
             }
         };
 
@@ -134,7 +134,7 @@
         // listening for click on is-playing for true
         // adds +1 to score
         myApp.correctCardSelected = function () {
-            $('p').on('click', function () {
+            $('img').on('click', function () {
                 if ($(this).attr("is-playing") === 'true') {
                     myApp.scoreIncrementor();
                     myApp.switchTrack(myApp.playlistFileNames);
@@ -148,7 +148,7 @@
         // the corresponding movie card has attribute is-playing = true 
         myApp.switchTrack = function (array) {
                     myApp.audio.pause();
-                    $('p[is-playing="true"]').attr("is-playing", false);
+                    $('[is-playing="true"]').attr("is-playing", false);
                     myApp.trackIndex = myApp.trackIndex + 1;
                     let filename = array[myApp.randomTrackList[myApp.trackIndex]];
                     myApp.audio.src = './audio/' + `${filename}` + `.mp3`;
@@ -179,14 +179,25 @@
     </script>
 </head>
 <body>
+    <main class = "game">
+        <div class="wrapper">
+
+        </div>
+
+    </main>
     <button class = "start">start</button>
     <button class = "skip" disabled = "disabled">skip</button>
     <span class = 'score'></span>
     <div class = "countdown">
         <span class = "seconds"></span>
     </div>
-    <p class = "lionKing" is-playing = "false" >Lion King</p>
+    <div>
+        <img class="lion-king" is-playing="false" src="./images/movie-00.jpg" alt="">
+        <img class = "mulan" is-playing = "false" src="./images/movie-01.jpg"  alt="">
+        <img class = "aladdin" is-playing = "false" src="./images/movie-02.jpg"  alt="">
+    </div>
+    <!-- <p class = "lionKing" is-playing = "false" >Lion King</p>
     <p class = "mulan" is-playing = "false">Mulan</p>
-    <p class = "aladdin" is-playing = "false">Aladdin</p>
+    <p class = "aladdin" is-playing = "false">Aladdin</p> -->
 </body>
 </html>
