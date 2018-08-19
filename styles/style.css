@@ -136,13 +136,11 @@ legend, button::-moz-focus-inner, input::-moz-focus-inner {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  grid-gap: 30px;
+  grid-gap: 50px;
   height: 80vh; }
   .wrapper .container img {
     width: 100%;
     height: 100%;
-    -o-object-fit: cover;
-    object-fit: cover;
     padding: 5px;
     background: white; }
 
