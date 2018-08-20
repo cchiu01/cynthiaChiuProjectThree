@@ -210,6 +210,8 @@ main {
   align-items: center; }
   .results h1 {
     font-size: 80px; }
+  .results p {
+    color: white; }
 
 html {
   font-size: 62.5%; }

@@ -146,6 +146,11 @@
                     $('.seconds').effect("shake", { distance: 1, times: 20 }, 800);
                     // console.log('yo')
                     $('html, body').delay(2000).animate({scrollTop: $("#results").offset().top}, 1000);
+                    let string = `<p>You earned a score of ${myApp.score}!</p>`;
+                    console.log(string);
+                    $('.results h2').html(string);
+
+
                 }
                 myApp.seconds = myApp.seconds - 1;
             }, 1000);
@@ -236,7 +241,7 @@
     </main>
     <section class="results" id="results">
         <div class="results-container">
-            <h3>Congratulations!</h3>
+            <h1>Congratulations!</h1>
         </div>
     </section>
     <!-- <p class = "lionKing" is-playing = "false" >Lion King</p>
