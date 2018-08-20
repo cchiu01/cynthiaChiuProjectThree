@@ -1,11 +1,11 @@
 @import "partials/_setup.scss";
 @import "partials/_main.scss";
 
-*{
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
+// *{
+//   box-sizing: border-box;
+//   padding: 0;
+//   margin: 0;
+// }
 
 html {
     font-size: 62.5%;
@@ -13,9 +13,8 @@ html {
 }
 
 body {
-    // background: rgb(17,17,17);
-    background: cornflowerblue;
-    // min-height: 100%; 
+    background: rgb(17,17,17);
+    font-family: 'Roboto', sans-serif;
 }
 
 section, main {
@@ -24,8 +23,13 @@ section, main {
 
 .wrapper {
     max-width: 1080px;
-    width: 80%;
+    width: 70%;
     margin: 0 auto;
     
 }
+
+span, h3 {
+    font-size: 40px;
+}
+
 
