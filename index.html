@@ -20,7 +20,7 @@
         myApp.audio = {};
         myApp.trackIndex = 0;
         myApp.score = 0;
-        myApp.seconds = 30;
+        myApp.seconds = 2;
 
         myApp.data = {
                 track0: {
@@ -144,6 +144,13 @@
                 if (myApp.seconds == 0) {
                     clearInterval(countdown);
                     $('.seconds').effect("shake", { distance: 1, times: 20 }, 800);
+                    // console.log('yo')
+                    $('html, body').delay(2000).animate({scrollTop: $("#results").offset().top}, 1000);
+                    let string = `<p>You earned a score of ${myApp.score}!</p>`;
+                    console.log(string);
+                    $('.results h2').html(string);
+
+
                 }
                 myApp.seconds = myApp.seconds - 1;
             }, 1000);
@@ -232,9 +239,11 @@
             </div>
         </div>
     </main>
-    <!-- <section class="results">
-
-    </section> -->
+    <section class="results" id="results">
+        <div class="results-container">
+            <h1>Congratulations!</h1>
+        </div>
+    </section>
     <!-- <p class = "lionKing" is-playing = "false" >Lion King</p>
     <p class = "mulan" is-playing = "false">Mulan</p>
     <p class = "aladdin" is-playing = "false">Aladdin</p> -->
