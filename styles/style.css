@@ -142,7 +142,8 @@ main {
   flex-direction: column;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
-  justify-content: center; }
+  justify-content: center;
+  height: 80vh; }
   main .wrapper .container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -207,13 +208,13 @@ main {
   justify-content: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
-  align-items: center; }
+  align-items: center;
+  padding-top: 20; }
   .results h1 {
     font-size: 100px;
     text-align: center; }
   .results p {
     color: white;
-    display: inline-block;
     font-size: 30px;
     text-align: center; }
 
