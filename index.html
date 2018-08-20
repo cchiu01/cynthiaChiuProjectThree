@@ -148,7 +148,7 @@
                     $('html, body').delay(2000).animate({scrollTop: $("#results").offset().top}, 1000);
                     let string = `<p>You earned a score of ${myApp.score}!</p>`;
                     console.log(string);
-                    $('.results h2').html(string);
+                    $('p').append(string);
 
 
                 }
@@ -242,6 +242,7 @@
     <section class="results" id="results">
         <div class="results-container">
             <h1>Congratulations!</h1>
+            <p></p>
         </div>
     </section>
     <!-- <p class = "lionKing" is-playing = "false" >Lion King</p>
