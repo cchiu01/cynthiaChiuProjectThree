@@ -4,15 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Mouse+Memoirs|Roboto" rel="stylesheet">
     <link rel="stylesheet" href="./styles/style.css">
-    <title>Project 3</title>
-    <style>
-
-        .hide {
-            display:none;
-        }
+    <title>Disney Music Trivia</title>
     
-    </style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -25,7 +20,7 @@
         myApp.audio = {};
         myApp.trackIndex = 0;
         myApp.score = 0;
-        myApp.seconds = 10;
+        myApp.seconds = 30;
 
         myApp.data = {
                 track0: {
@@ -47,7 +42,28 @@
                     title: `Lion King Hakuna Matata`,
                     movie: `Lion King`,
                     source: `Lion_King_Hakuna_Matata`
+                },
+                track4: {
+                    movie: 'Frozen',
+                    source: `Frozen_In_Summer`
+                },
+                track5: {
+                    movie: 'Frozen',
+                    source: 'Frozen_Let_It_Go'
+                },
+                track6: {
+                    movie: 'Frozen',
+                    source: 'Frozen_Do_You_Want_To_Build_A_Snowman'
+                },
+                track7: {
+                    movie: 'Tarzan',
+                    source: 'Tarzan_Son_Of_Man'
+                },
+                track8: {
+                    movie: 'Star Wars',
+                    source: 'Star_Wars_The_Imperial_March'
                 }
+
 
             };
         
@@ -86,6 +102,15 @@
             if (string === `Aladdin_A_Whole_New_World`) {
                 $('.aladdin').attr("is-playing", true);
             }
+            if(string === `Frozen_In_Summer` || string ==='Frozen_Let_It_Go' || string === 'Frozen_Do_You_Want_To_Build_A_Snowman') {
+                $('.frozen').attr("is-playing", true);
+            }
+            if (string === 'Tarzan_Son_Of_Man') {
+                $('.tarzan').attr("is-playing", true);
+            }
+            if (string === 'Star_Wars_The_Imperial_March') {
+                $('.star-wars').attr("is-playing", true);
+            }
         };
 
         // 
@@ -109,7 +134,6 @@
 
         myApp.countdown = function () {
             let countdown = setInterval(function () {
-                console.log('init')
                 $('.seconds').text(myApp.seconds);
 
                 if (myApp.seconds <= 5) {
@@ -179,35 +203,38 @@
     </script>
 </head>
 <body>
-    <section class="welcome"></section>
-    <section class="instructions"></section>
+    <!-- <section class="welcome"></section>
+    <section class="instructions"></section> -->
     <main class = "game">
         <div class="wrapper">
-
-            <button class = "start">start</button>
-            <span class='score'></span>
-            <button class = "skip" disabled = "disabled">skip</button>
-            
-            <div class = "countdown">
-                <span class = "seconds"></span>
+            <div class="utils-container">
+                <h3 class = "score-container">Score <span class='score'></span></h3>
+                <div class="button-container">
+                    <button class = "start">start</button>
+                    <button class = "skip" disabled = "disabled">skip</button>
+                </div>
+                <!-- <div class = "countdown"> -->
+                    <h3 class = "countdown-container">Countdown <span class = "seconds"></span></h3>
+                    <!-- <span>Countdown</span> -->
+                    <!-- <span class = "seconds"></span> -->
+                <!-- </div> -->
             </div>
             <div class="container">
-                <img class="lion-king" is-playing="false" src="./images/movie-00.jpg" alt="">
-                <img class = "mulan" is-playing = "false" src="./images/movie-01.jpg"  alt="">
-                <img class = "aladdin" is-playing = "false" src="./images/movie-05.png"  alt="">
-                <img class="aladdin" is-playing="false" 
-                src="./images/movie-04.jpg" alt="">
-                <img class="aladdin" is-playing="false" src="./images/movie-04.jpg" alt="">
-                <img class="aladdin" is-playing="false" src="./images/movie-06.jpg" alt="">
-                <img class="aladdin" is-playing="false" src="./images/movie-04.jpg" alt="">
-                <img class="aladdin" is-playing="false" src="./images/movie-04.jpg" alt="">
-                <img class="aladdin" is-playing="false" src="./images/movie-04.jpg" alt="">
+                <img class="lion-king" is-playing="false" src="./images/movie-00.jpg" alt="Timon, Pumba and Simba from Lion King">
+                <img class = "mulan" is-playing = "false" src="./images/movie-01.jpg"  alt="Mulan and Mushu from Mulan">
+                <img class = "aladdin" is-playing = "false" src="./images/movie-02.jpg"  alt="Aladdin, Jasmine, Iago on the magic carpet from Aladdin">
+                <img class="tarzan" is-playing="false" src="./images/movie-03.jpg" alt="Tarazan gliding on a tree">
+                <img class="frozen" is-playing="false" src="./images/movie-04.jpg" alt="Anna, Elsa and Olaf from Frozen">
+                <img class="aladdin" is-playing="false" src="./images/movie-05.jpg" alt="">
+                <img class="moana" is-playing="false" src="./images/movie-06.jpg" alt="">
+                <img class="aladdin" is-playing="false" src="./images/movie-07.jpg" alt="">
+                <img class="star-wars" is-playing="false" src="./images/movie-08.jpg" alt="Cast of Star Wars">
             </div>
         </div>
     </main>
-    <section class="results">
+    <!-- <section class="results">
 
-    </section>
+    </section> -->
     <!-- <p class = "lionKing" is-playing = "false" >Lion King</p>
     <p class = "mulan" is-playing = "false">Mulan</p>
     <p class = "aladdin" is-playing = "false">Aladdin</p> -->
